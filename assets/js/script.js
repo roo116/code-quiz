@@ -4,7 +4,7 @@
 
 
 //timer
-function timer(){
+function timer(){cd
     var sec = 30;
     var timer = setInterval(function(){
         document.getElementById('timer').innerHTML='00:'+sec;
