@@ -1,48 +1,49 @@
 //global variables
 //questions = []
-var timerEl = document.querySelector(".timer-section");
-var sec = 0;
-var hidden = document.getElementsByClassName("hidden");
-console.log(hidden);
-i = 1
 
+// var timerEl = document.querySelector(".timer-section");
+// var sec = 0;
+// var hidden = document.getElementsByClassName("hidden");
+// console.log(hidden);
+// i = 1
 
-
-
-function btnHandler(click) {
-    //get target from event
-   var targetEl = event.target;
-
-    if(targetEl.matches("#btn")) {
-        timer();
-    }
-};
 
 //timer
-function timer() {
-    sec = 30;
-    var timer = setInterval(function(){
-        document.getElementById('timer').innerHTML='00:'+sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
 
-    // askQuestions()
-}
+// function btnHandler(click) {
+//     //get target from event
+//    var targetEl = event.target;
+
+//     if(targetEl.matches("#btn")) {
+//         timer();
+//     }
+// };
+
+//timer
+// function timer() {
+//     sec = 30;
+//     var timer = setInterval(function(){
+//         document.getElementById('timer').innerHTML='00:'+sec;
+//         sec--;
+//         if (sec < 0) {
+//             clearInterval(timer);
+//         }
+//     }, 1000);
+
+//     // askQuestions()
+// }
 
 
-function askQuestions() {
-    i=1
-    document.getElementById("q[i]")
+// function askQuestions() {
+//     i=1
+//     document.getElementById("q[i]")
 
 
-    
-    
-}
 
-timerEl.addEventListener("click", btnHandler);
+
+// }
+
+// timerEl.addEventListener("click", btnHandler);
 //high score
 
 //questions
@@ -52,6 +53,37 @@ timerEl.addEventListener("click", btnHandler);
 // correct answer,
 //function to display right or wrong answer
 //
+
+//create questions objects as global and store in local storage
+var question1 = {
+    text: "What is your name?",
+    answerA: "Indiana Jones",
+    answerB: "Arthur, King of the Britons",
+    answerC: "A larch",
+    correctAnswer: "b"
+}
+
+var question2 = {
+    text: "What is your quest?",
+    answerA: "to find the Lost Ark of Israel",
+    answerB: "to learn fullstack development in 24 weeks",
+    answerC: "To seek the Holy Grail",
+    correctAnser: "c"
+}
+
+var questionList = [question1, question2]
+
+for (i = 0; i < questionList.length; i++) {
+    // console.log("q" + Number(i+1));
+    qdata = "q" + Number(i + 1);
+    localStorage.setItem(qdata, JSON.stringify(questionList[i]));
+};
+
+var createLiEl = document.createElement("li"); 
+createLiEl.append(".qlist")
+
+
+
 
 // function to reduce timer on wrong answer
 // if answer = wrong reduce timer left by x;
