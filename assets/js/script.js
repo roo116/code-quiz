@@ -79,8 +79,22 @@ for (i = 0; i < questionList.length; i++) {
     localStorage.setItem(qdata, JSON.stringify(questionList[i]));
 };
 
-var createLiEl = document.createElement("li"); 
-createLiEl.append(".qlist")
+//create first para element
+var createParaEl = document.createElement("p"); 
+document.querySelector(".qlist").appendChild(createParaEl);
+createParaEl.className = "q-text"
+// createLiEl.innerHTML = localStorage.getItem(JSON.parse(question1.text))  
+createParaEl.innerHTML = question1.text;
+
+// create first answer
+document.querySelector(".qlist").appendChild(createParaEl);
+createParaEl.innerHTML = question1.answerA;
+
+
+
+
+
+
 
 
 
