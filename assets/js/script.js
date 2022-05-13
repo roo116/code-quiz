@@ -1,35 +1,42 @@
 //global variables
 //questions = []
 
+//variables for timer code
 var timerEl = document.querySelector(".timer-section");
 var sec = 0;
-var hidden = document.getElementsByClassName("hidden");
+
+//variables for question/answer code
+var questionDivEl = document.querySelector(".question-div");
+var answerOlEl = document.querySelector("#answer-list");
+var currQuestion = 0;
+console.log(currQuestion);
+
+//variables for high-score code
+
 // console.log(hidden);
 // i = 1
 
 //timer
 
-function btnHandler(click) {
-    //get target from event
-   var targetEl = event.target;
+function btnHandler(event) {
+  //get target from event
+  var targetEl = event.target;
 
-    if(targetEl.matches("#btn")) {
-        timer();
-    }
-};
+  if (targetEl.matches("#timer-btn")) {
+    timer();
+  }
+}
 
-timer
+timer;
 function timer() {
-    sec = 60;
-    var timer = setInterval(function(){
-        document.getElementById('timer').innerHTML='00:'+sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
-
-    askQuestion()
+  sec = 60;
+  var timer = setInterval(function () {
+    document.getElementById("timer").innerHTML = "00:" + sec;
+    sec--;
+    if (sec < 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
 }
 
 // function askQuestions() {
@@ -37,7 +44,6 @@ function timer() {
 //     document.getElementById("q[i]")
 
 // }
-
 
 //high score
 
@@ -50,23 +56,25 @@ function timer() {
 //
 
 //create questions objects as global and store in local storage
-var question1 = {
-  num: "1. ",
-  text: "What is your name?",
-  answerA: "Indiana Jones",
-  answerB: "Arthur, King of the Britons",
-  answerC: "A larch",
-  correctAnswer: "2",
-};
+var questions = [
+  {
+    num: "1. ",
+    text: "What is your name?",
+    answers: ["Indiana Jones", "Arthur, King of the Britons", "A larch"],
+    correctAnswer: 1,
+  },
 
-var question2 = {
-  num: "2.",
-  text: "What is your quest?",
-  answerA: "to find the Lost Ark of the Covenent",
-  answerB: "to learn fullstack web-development in 24 weeks",
-  answerC: "To seek the Holy Grail",
-  correctAnswer: "c",
-};
+  {
+    num: "2.",
+    text: "What is your quest?",
+    answers: [
+      "to find the Lost Ark of the Covenent",
+      "to learn fullstack web-development in 24 weeks",
+      "To seek the Holy Grail",
+    ],
+    correctAnswer: 2,
+  },
+];
 
 //START - add question object to local storage
 
@@ -82,49 +90,100 @@ var question2 = {
 
 //START - add question text to html
 
+// var curIdx = 0;
+// curIdx++
+
 function askQuestion() {
-var questionDivEl = document.querySelector(".question-div");
-var createQuestionEl = document.createElement("p");
-createQuestionEl.className = "question-item fs-3";
-createQuestionEl.textContent = question1.num + question1.text;
-questionDivEl.appendChild(createQuestionEl);
+  console.log(currQuestion);
+  var createQuestionEl = document.createElement("p");
+  createQuestionEl.className = "question-item fs-3";
+  createQuestionEl.textContent =
+    questions[currQuestion].num + questions[currQuestion].text;
+  questionDivEl.appendChild(createQuestionEl);
+
+  //END - add question text to html
+
+  // START - add answer text to html
+
+  for (i = 0; i < questions[currQuestion].answers.length; i++) {
+    var createAnswer = document.createElement("li");
+    var classId = "answer-list-item-" + i;
+    createAnswer.id = classId;
+    createAnswer.className = "answer-list-item fs-5";
+    createAnswer.textContent = questions[currQuestion].answers[i];
+
+    createAnswer.setAttribute("data-answer-value", i);
+    createAnswer.addEventListener("click", function (event) {
+      var answerVal = event.target.dataset.answerValue;
+      console.log(answerVal);
+      if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
+        console.log("correct");
+      } else {
+        console.log("incorrect");
+      }
+    });
+
+    answerOlEl.appendChild(createAnswer);
+  }
+}
+
+// var evalAnswer = function () {
+//     answerListItems = answerOlEl.getElementsByTagName("li");
+//     for(var i=0; i< answerListItems.length; i++);
+//     doStuff();
+
+// };
+
+// function doStuff() {
+//     console.log(answerList.id);
+// }
+// evalAnswer();
+
 // }
 
-//END - add question text to html
+//STACKOVERFLOW EVENT LISTENER ON LI CODE SNIPPET
+// document.getElementById("parent-list").addEventListener("click",function(e) {
+//     // e.target is our targetted element.
+//                 // try doing console.log(e.target.nodeName), it will result LI
+//     if(e.target && e.target.nodeName == "LI") {
+//         console.log(e.target.id + " was clicked");
+//     }
+// });
 
-// START - add answer text to html
+// createAnswer.addEventListener("click", evalAnswer)
+// var evalAnswer = function(){
+//     console.log ("I clicked this " + createAnswer)
+// };
+// var createAnswerElA = document.createElement("li").id;
+// var createAnswerElB = document.createElement("li");
+// var createAnswerElC = document.createElement("li");
 
-// function createAnswer() {
-var answerOlEl = document.querySelector("ol");
-var createAnswerElA = document.createElement("li");
-var createAnswerElB = document.createElement("li");
-var createAnswerElC = document.createElement("li");
+// Steph note: createAnswerElA.addEventListener('click', evalAnswer)
 
 // for(i=0; i <= question1.length; i++) {
 // var createAnswerEl = document.createElement("li");
 
 //add answer a
-createAnswerElA.className = "fs-5";
-createAnswerElA.textContent = question1.answerA;
-answerOlEl.appendChild(createAnswerElA);
-// console.log(createAnswerEl);
+// createAnswerElA.className = "fs-5";
+// createAnswerElA.textContent = question1.answerA;
+// answerOlEl.appendChild(createAnswerElA);
+// // console.log(createAnswerEl);
 
-//add answer b
-createAnswerElB.className = "fs-5";
-createAnswerElB.textContent = question1.answerB;
-answerOlEl.appendChild(createAnswerElB);
+// //add answer b
+// createAnswerElB.className = "fs-5";
+// createAnswerElB.textContent = question1.answerB;
+// answerOlEl.appendChild(createAnswerElB);
 
-//add answer c
-createAnswerElC.className = "fs-5";
-createAnswerElC.textContent = question1.answerC;
-answerOlEl.appendChild(createAnswerElC);
+// //add answer c
+// createAnswerElC.className = "fs-5";
+// createAnswerElC.textContent = question1.answerC;
+// answerOlEl.appendChild(createAnswerElC);
 
-}
+// }
 
 //START answer question
 
-
-timerEl.addEventListener("click", btnHandler);
+timerEl.addEventListener("click", askQuestion);
 
 // }
 
@@ -152,3 +211,6 @@ timerEl.addEventListener("click", btnHandler);
 // create code to hightlight selected response
 
 //END pseudocode
+//localSTorage
+
+// var allScores = JSON.parse(localStorage.getItem('key')) || []
