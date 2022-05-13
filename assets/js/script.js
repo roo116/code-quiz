@@ -3,6 +3,7 @@
 
 //variables for timer code
 var timerEl = document.querySelector(".timer-section");
+var buttonEl = document.querySelector("#next-btn");
 var sec = 0;
 
 //variables for question/answer code
@@ -27,7 +28,7 @@ function btnHandler(event) {
   }
 }
 
-timer;
+// timer;
 function timer() {
   sec = 60;
   var timer = setInterval(function () {
@@ -84,6 +85,8 @@ var questions = [
   }
 ];
 
+
+
 //START - add question object to local storage
 
 // var questionList = [question1, question2];
@@ -108,46 +111,89 @@ function askQuestion() {
   console.log("Ok, now I am inside the askQuestion function. CurrQuestions = " + currQuestion);
 
   var createQuestionEl = document.createElement("p");
+  // createQuestionEl.setAttribute("data-question-value", )
   createQuestionEl.className = "question-item fs-3";
   createQuestionEl.textContent =
     questions[currQuestion].num + questions[currQuestion].text;
   questionDivEl.appendChild(createQuestionEl);
 
-  //END - add question text to html
 
-  // START - add answer text to html
 
-  for (i = 0; i < questions[currQuestion].answers.length; i++) {
-    var createAnswer = document.createElement("li");
-    var classId = "answer-list-item-" + i;
-    createAnswer.id = classId;
-    createAnswer.className = "answer-list-item fs-5";
-    createAnswer.textContent = questions[currQuestion].answers[i];
-    answerOlEl.appendChild(createAnswer);
 
-    createAnswer.setAttribute("data-answer-value", i);
-    createAnswer.addEventListener("click", function (event) {
-      var answerVal = event.target.dataset.answerValue;
-      console.log(answerVal);
-      if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-        console.log("Correct answer selected")
-        var responseEl = document.querySelector(".right-wrong")
-        var resultDisplay = document.createElement("p");
-        resultDisplay.className = "answer-result";
-        resultDisplay.textContent = "Yes!!!!  You're right.  Awesome!"
-        responseEl.appendChild(resultDisplay);
+//END - add question text to html
 
-        console.log(resultDisplay);
-        // responseEl.appendChild(resultDisplay);
-        // resspone.textContent = "Yes!!!!  You're right.  How awesome!"
-        // console.log(response.textContent);
-      } else {
-        // response.textContent = "Wrong!!! Wrong! Wrong! Wrong!"
-        console.log("incorrect");
-      }
-    });
-  }
+// START - add answer text to html
+
+for (i = 0; i < questions[currQuestion].answers.length; i++) {
+  var createAnswer = document.createElement("li");
+  var classId = "answer-list-item-" + i;
+  createAnswer.id = classId;
+  createAnswer.className = "answer-list-item fs-5";
+  createAnswer.textContent = questions[currQuestion].answers[i];
+  answerOlEl.appendChild(createAnswer);
+
+  createAnswer.setAttribute("data-answer-value", i);
+  createAnswer.addEventListener("click", function (event) {
+    var answerVal = event.target.dataset.answerValue;
+    console.log(answerVal);
+    if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
+      var responseEl = document.querySelector(".right-wrong")
+      var resultDisplay = document.createElement("p");
+      resultDisplay.className = "answer-result";
+      resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
+      responseEl.appendChild(resultDisplay);
+    } else {
+      var responseEl = document.querySelector(".right-wrong")
+      var resultDisplay = document.createElement("p");
+      resultDisplay.className = "answer-result";
+      resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
+      responseEl.appendChild(resultDisplay);
+    };
+  });
+
+};
+
+};
+
+
+
+
+function nextQuestion(event) {
+
+  removeEl = document.getElementsByClassName("answer-list-item")
+  for (i = 0; i < removeEl.length; i++) {
+    removeEl[i].remove()
+  }  
 }
+
+// function nextButton(event) {
+//   //get target from event
+//   var nextButtionClick = event.target;
+//   console.log(nextButtionClick);
+
+//   // if (nextButtionClick.matches("#next-btn")) {
+//   //   nextQuestion()
+
+
+buttonEl.addEventListener("click", nextQuestion);
+
+
+//   currQuestion++
+//   if (currQuestion < questions.length) {
+//     console.log("current question is " + currQuestion + " and current lenght is " + questions.length);
+//     askQuestion()
+//   }
+
+
+//create next question event handler
+// var nextButton = document.querySelector(".btn-next")
+// nextButton.addEventListener("click", nextQuestion)
+
+
+// console.log("This is after a pass through askQuestion function " + currQuestion);
+// if(currQuestion < questions.length) {
+//   askQuestion()
+// }
 
 // currQuestion++
 //   console.log("Incremented currQuestion by 1");
