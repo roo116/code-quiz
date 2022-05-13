@@ -120,38 +120,38 @@ function askQuestion() {
 
 
 
-//END - add question text to html
+  //END - add question text to html
 
-// START - add answer text to html
+  // START - add answer text to html
 
-for (i = 0; i < questions[currQuestion].answers.length; i++) {
-  var createAnswer = document.createElement("li");
-  var classId = "answer-list-item-" + i;
-  createAnswer.id = classId;
-  createAnswer.className = "answer-list-item fs-5";
-  createAnswer.textContent = questions[currQuestion].answers[i];
-  answerOlEl.appendChild(createAnswer);
+  for (i = 0; i < questions[currQuestion].answers.length; i++) {
+    var createAnswer = document.createElement("li");
+    var classId = "answer-list-item-" + i;
+    createAnswer.id = classId;
+    createAnswer.className = "answer-list-item fs-5";
+    createAnswer.textContent = questions[currQuestion].answers[i];
+    answerOlEl.appendChild(createAnswer);
 
-  createAnswer.setAttribute("data-answer-value", i);
-  createAnswer.addEventListener("click", function (event) {
-    var answerVal = event.target.dataset.answerValue;
-    console.log(answerVal);
-    if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-      var responseEl = document.querySelector(".right-wrong")
-      var resultDisplay = document.createElement("p");
-      resultDisplay.className = "answer-result";
-      resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
-      responseEl.appendChild(resultDisplay);
-    } else {
-      var responseEl = document.querySelector(".right-wrong")
-      var resultDisplay = document.createElement("p");
-      resultDisplay.className = "answer-result";
-      resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
-      responseEl.appendChild(resultDisplay);
-    };
-  });
+    createAnswer.setAttribute("data-answer-value", i);
+    createAnswer.addEventListener("click", function (event) {
+      var answerVal = event.target.dataset.answerValue;
+      console.log(answerVal);
+      if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
+        var responseEl = document.querySelector(".right-wrong")
+        var resultDisplay = document.createElement("p");
+        resultDisplay.className = "answer-result";
+        resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
+        responseEl.appendChild(resultDisplay);
+      } else {
+        var responseEl = document.querySelector(".right-wrong")
+        var resultDisplay = document.createElement("p");
+        resultDisplay.className = "answer-result";
+        resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
+        responseEl.appendChild(resultDisplay);
+      };
+    });
 
-};
+  };
 
 };
 
@@ -160,10 +160,12 @@ for (i = 0; i < questions[currQuestion].answers.length; i++) {
 
 function nextQuestion(event) {
 
-  removeEl = document.getElementsByClassName("answer-list-item")
-  for (i = 0; i < removeEl.length; i++) {
-    removeEl[i].remove()
-  }  
+  removeAnswerList = document.getElementById("answer-list");
+  while(removeAnswerList.hasChildNodes()) {
+    removeAnswerList.removeChild(removeAnswerList.firstChild);
+  }
+
+  
 }
 
 // function nextButton(event) {
