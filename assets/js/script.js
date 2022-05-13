@@ -9,7 +9,7 @@ var sec = 0;
 var questionDivEl = document.querySelector(".question-div");
 var answerOlEl = document.querySelector("#answer-list");
 var currQuestion = 0;
-console.log(currQuestion);
+console.log("At the start of the JS file currQuestion = " + currQuestion);
 
 //variables for high-score code
 
@@ -74,6 +74,14 @@ var questions = [
     ],
     correctAnswer: 2,
   },
+
+  {
+    num: "3. ",
+    text: "What is the average speed velocity of an unladen swallow?",
+    answers: ["What do you mean? an African or European Swallow?", "43 times", "Blue..no Yellooooo...."],
+
+    corretAnswer: 0
+  }
 ];
 
 //START - add question object to local storage
@@ -94,7 +102,11 @@ var questions = [
 // curIdx++
 
 function askQuestion() {
-  console.log(currQuestion);
+
+  // set currQuestion to latest value
+  currQuestion = currQuestion;
+  console.log("Ok, now I am inside the askQuestion function. CurrQuestions = " + currQuestion);
+
   var createQuestionEl = document.createElement("p");
   createQuestionEl.className = "question-item fs-3";
   createQuestionEl.textContent =
@@ -111,21 +123,36 @@ function askQuestion() {
     createAnswer.id = classId;
     createAnswer.className = "answer-list-item fs-5";
     createAnswer.textContent = questions[currQuestion].answers[i];
+    answerOlEl.appendChild(createAnswer);
 
     createAnswer.setAttribute("data-answer-value", i);
     createAnswer.addEventListener("click", function (event) {
       var answerVal = event.target.dataset.answerValue;
       console.log(answerVal);
       if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-        console.log("correct");
+        console.log("Correct answer selected")
+        var responseEl = document.querySelector(".right-wrong")
+        var resultDisplay = document.createElement("p");
+        resultDisplay.className = "answer-result";
+        resultDisplay.textContent = "Yes!!!!  You're right.  Awesome!"
+        responseEl.appendChild(resultDisplay);
+
+        console.log(resultDisplay);
+        // responseEl.appendChild(resultDisplay);
+        // resspone.textContent = "Yes!!!!  You're right.  How awesome!"
+        // console.log(response.textContent);
       } else {
+        // response.textContent = "Wrong!!! Wrong! Wrong! Wrong!"
         console.log("incorrect");
       }
     });
-
-    answerOlEl.appendChild(createAnswer);
   }
 }
+
+// currQuestion++
+//   console.log("Incremented currQuestion by 1");
+//   return askQuestion()
+
 
 // var evalAnswer = function () {
 //     answerListItems = answerOlEl.getElementsByTagName("li");
