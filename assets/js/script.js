@@ -151,10 +151,7 @@ function isEnd() {
     askQuestion();
   } else {
     console.log("No more questions!!!")
-    score = sec
-    console.log("final score is " + score);
-    // create HTML div/form for end game
-    // create html section for 
+    endQuiz()
   }
 };
 
@@ -166,7 +163,7 @@ function isEnd() {
 function endQuiz() {
   console.log("I am in the endQuiz function");
   score = sec;
-  console.log(score);
+  console.log("final score is " + score);
   // if (score > sec) {
   //   "Your score is "
   // }
