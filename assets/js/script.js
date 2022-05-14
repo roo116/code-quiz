@@ -152,7 +152,7 @@ function isEnd() {
   } else {
     console.log("No more questions!!!")
     score = sec
-    console.log
+    console.log("final score is " + score);
     // create HTML div/form for end game
     // create html section for 
   }
