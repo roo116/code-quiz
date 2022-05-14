@@ -2,9 +2,9 @@
 
 //variables for timer/score
 var timerEl = document.querySelector("#timer-btn");
-var buttonEl = document.querySelector("#next-btn");
+// var buttonEl = document.querySelector("#next-btn");
 var sec = 0;
-var scor = 0
+var score = 0;
 
 //variables for question/answer code
 var questionDivEl = document.querySelector(".question-div");
@@ -47,6 +47,20 @@ var questions = [
 ];
 
 
+// timer
+function timer() {
+  sec = 60;
+  var timer = setInterval(function () {
+    document.getElementById("timer").innerHTML = "00:" + sec;
+    sec--;
+    if (sec < 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+
+  timerEl.style.display = "none"
+    askQuestion()
+}
 
 // START - ask the question code
 
@@ -108,19 +122,9 @@ function askQuestion() {
 
 };
 
-// timer;
-function timer() {
-  sec = 60;
-  var timer = setInterval(function () {
-    document.getElementById("timer").innerHTML = "00:" + sec;
-    sec--;
-    if (sec < 0) {
-      clearInterval(timer);
-    }
-  }, 1000);
 
-  askQuestion()
-}
+
+
 
 function nextQuestion() {
   //clear out results display
@@ -151,6 +155,7 @@ function isEnd() {
     askQuestion();
   } else {
     console.log("No more questions!!!")
+    debugger;
     endQuiz()
   }
 };
@@ -161,15 +166,20 @@ function isEnd() {
 
 
 function endQuiz() {
+  debugger;
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
+
+
   // if (score > sec) {
   //   "Your score is "
   // }
   // sec = 0
 
 }
+
+
 
 // function nextButton(event) {
 //   //get target from event
