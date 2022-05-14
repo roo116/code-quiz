@@ -170,6 +170,8 @@ function endQuiz() {
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
+  // var hideQa = document.getElementById("qa-div");
+
 
 
   // if (score > sec) {
@@ -178,6 +180,12 @@ function endQuiz() {
   // sec = 0
 
 }
+
+
+function createHighScoreForm() {
+  
+}
+
 
 
 
