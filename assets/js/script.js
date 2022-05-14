@@ -1,5 +1,22 @@
 //global variables
 
+//variables for timer/score
+var timerEl = document.querySelector("#timer-btn");
+var buttonEl = document.querySelector("#next-btn");
+var sec = 0;
+var scor = 0
+
+//variables for question/answer code
+var questionDivEl = document.querySelector(".question-div");
+var answerOlEl = document.querySelector("#answer-list");
+var resultDisplay = ""
+var currQuestion = 0;
+// var currAnswer = ""
+console.log("At the start of the JS file currQuestion = " + currQuestion);
+
+//variables for high-score code
+
+
 //create questions objects as global and store in local storage
 var questions = [
   {
@@ -30,21 +47,8 @@ var questions = [
 ];
 
 
-//variables for timer/score
-var timerEl = document.querySelector("#timer-btn");
-var buttonEl = document.querySelector("#next-btn");
-var sec = 0;
-var scor = 0
 
-//variables for question/answer code
-var questionDivEl = document.querySelector(".question-div");
-var answerOlEl = document.querySelector("#answer-list");
-var resultDisplay = ""
-var currQuestion = 0;
-// var currAnswer = ""
-console.log("At the start of the JS file currQuestion = " + currQuestion);
-
-//variables for high-score code
+// START - ask the question code
 
 function askQuestion() {
 
@@ -52,6 +56,7 @@ function askQuestion() {
   currQuestion = currQuestion;
   console.log("Ok, now I am inside the askQuestion function. CurrQuestions = " + currQuestion);
 
+  // create html for the question
   var createQuestionEl = document.createElement("p");
   // createQuestionEl.setAttribute("data-question-value", )
   createQuestionEl.className = "question-item fs-3";
@@ -60,13 +65,7 @@ function askQuestion() {
   createQuestionEl.id = "question"
   questionDivEl.appendChild(createQuestionEl);
 
-
-
-
-  //END - add question text to html
-
-  // START - add answer text to html
-
+  // create html for the answers
   for (i = 0; i < questions[currQuestion].answers.length; i++) {
     var createAnswer = document.createElement("li");
     var classId = "answer-list-item-" + i;
@@ -75,23 +74,33 @@ function askQuestion() {
     createAnswer.textContent = questions[currQuestion].answers[i];
     answerOlEl.appendChild(createAnswer);
 
+    // create listener on the answers
     createAnswer.setAttribute("data-answer-value", i);
     createAnswer.addEventListener("click", function (event) {
       var answerVal = event.target.dataset.answerValue;
-      console.log(answerVal);
+      console.log("the answerVal is " + answerVal);
+      // if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
+      //   var responseEl = document.querySelector(".right-wrong")
+      //   var resultDisplay = document.createElement("p");
+      //   resultDisplay.id = "answer-result";
+      //   resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
+      //   responseEl.appendChild(resultDisplay);
+      // } else {
+      //   var responseEl = document.querySelector(".right-wrong")
+      //   var resultDisplay = document.createElement("p");
+      //   resultDisplay.id = "answer-result";
+      //   resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
+      //   responseEl.appendChild(resultDisplay);
+      // };
+
+      // evaluate the answer and penalize for wrong answer
       if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-        var responseEl = document.querySelector(".right-wrong")
-        var resultDisplay = document.createElement("p");
-        resultDisplay.id = "answer-result";
-        resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
-        responseEl.appendChild(resultDisplay);
+        console.log("answer was correct")
       } else {
-        var responseEl = document.querySelector(".right-wrong")
-        var resultDisplay = document.createElement("p");
-        resultDisplay.id = "answer-result";
-        resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
-        responseEl.appendChild(resultDisplay);
-      };
+        console.log("answer was incorrect");
+        sec = sec - 5;
+      }
+
       nextQuestion()
     });
 
@@ -124,8 +133,8 @@ function nextQuestion() {
     removeAnswerList.removeChild(removeAnswerList.firstChild);
   }
 
-  var removeDisplayEl = document.getElementById("answer-result")
-  removeDisplayEl.remove();
+  // var removeDisplayEl = document.getElementById("answer-result")
+  // removeDisplayEl.remove();
 
   isEnd()
 
