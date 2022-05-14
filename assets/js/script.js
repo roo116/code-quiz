@@ -81,7 +81,7 @@ var questions = [
     text: "What is the average speed velocity of an unladen swallow?",
     answers: ["What do you mean? an African or European Swallow?", "43 times", "Blue..no Yellooooo...."],
 
-    corretAnswer: 0
+    correctAnswer: 0
   }
 ];
 
