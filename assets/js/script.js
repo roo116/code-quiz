@@ -13,8 +13,7 @@ var resultDisplay = "";
 var currQuestion = 0;
 // var currAnswer = ""
 console.log("At the start of the JS file currQuestion = " + currQuestion);
-
-
+var highScores = document.getElementById("high-score");
 
 //create questions objects as global and store in local storage
 var questions = [
@@ -48,6 +47,23 @@ var questions = [
     correctAnswer: 0,
   },
 ];
+
+function getHighScores() {
+  var allScores = [];
+  keys = Object.keys(localStorage) ;
+  i = keys.length
+
+  while (i--) {
+    allScores.push(localStorage.getItem(keys[i]));
+    
+  }
+
+  console.log (allScores);
+  // allScores = JSON.parse(localStorage.getItem("name", )) || [];
+  // console.log(allScores);
+}
+
+highScores.addEventListener("click", getHighScores);
 
 // timer
 function timer() {
