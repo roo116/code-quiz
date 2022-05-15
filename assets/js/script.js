@@ -59,12 +59,19 @@ function timer() {
   }, 1000);
 
   timerEl.style.display = "none"
-    askQuestion()
+  askQuestion()
 }
 
 // START - ask the question code
 
 function askQuestion() {
+  debugger;
+  //first let's get rid of the Welcome element
+  var welcomeEl = document.getElementById("welcome-element");
+  while (welcomeEl.hasChildNodes()) {
+    welcomeEl.removeChild(welcomeEl.firstChild);
+  }
+
 
   // set currQuestion to latest value
   currQuestion = currQuestion;
@@ -77,6 +84,7 @@ function askQuestion() {
   createQuestionEl.textContent =
     questions[currQuestion].num + questions[currQuestion].text;
   createQuestionEl.id = "question"
+  createQuestionEl.className = "card-title fs-1"
   questionDivEl.appendChild(createQuestionEl);
 
   // create html for the answers
@@ -183,7 +191,7 @@ function endQuiz() {
 
 
 function createHighScoreForm() {
-  
+
 }
 
 
