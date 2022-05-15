@@ -174,26 +174,52 @@ function isEnd() {
 
 
 function endQuiz() {
+
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
-  // var hideQa = document.getElementById("qa-div");
+  debugger;
+  var scoreDiv = document.getElementById("score")
+  var scoreEl = document.createElement("h2");
+  scoreEl.textContent = "You finished! Great Job!"
+  scoreEl.className = "fs-2 text-center"
+  scoreDiv.append(scoreEl);
 
+  showScore = document.createElement("p");
+  showScore.textContent = "You're score is " + score;
+  showScore.className = "fs-3 text-center"
+  scoreDiv.appendChild(showScore);
 
-
-  // if (score > sec) {
-  //   "Your score is "
-  // }
-  // sec = 0
-
+  var askScore = document.createElement("button");
+  askScore.type = "button";
+  askScore.className = "btn btn-primary d-flex justify-content-center";
+  askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
+  askScore.innerHTML = "Click me if you want to enter your score!!!";
+  scoreDiv.appendChild(askScore);
 }
 
 
-function createHighScoreForm() {
-  // lets create a form to capture the score and such
-  
+// function createHighScoreForm() {
+//   // lets create a form to capture the score and such
+//   var scoreDiv = document.getElementById("score")
+//   var scoreEl = document.createElement("p");
+//   scoreEl.textContent = "You finished! Great Job!"
+//   scoreEl.className = "fs-1 text-center"
+//   scoreDiv.appendChild(scoreEl);
 
-}
+//   showScore = document.createElement("p");
+//   showScore.textContent = "You're score is " + score;
+//   showScore.className = "fs-3 text-center"
+//   showScore.appendChild(scoreEl);
+
+//   var askScore = document.createElement("button");
+//   askScore.type = "button";
+//   askScore.className = "btn btn-primary d-flex justify-content-center";
+//   askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
+//   askScore.innerHTML = "Click me if you want to enter your score!!!";
+//   scoreDiv.appendChild(askScore);
+
+// }
 
 
 
