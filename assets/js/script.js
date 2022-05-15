@@ -14,7 +14,7 @@ var currQuestion = 0;
 // var currAnswer = ""
 console.log("At the start of the JS file currQuestion = " + currQuestion);
 
-//variables for high-score code
+
 
 //create questions objects as global and store in local storage
 var questions = [
@@ -189,7 +189,7 @@ function endQuiz() {
   }
 
   scoreEl.textContent = "You finished! Great Job!";
-  scoreEl.className = "fs-2 text-center";
+  scoreEl.className = "fs-2 text-center pe-0";
   scoreDiv.append(scoreEl);
 
   //show score
@@ -218,8 +218,8 @@ function endQuiz() {
   input1.type = "text";
   input1.id = "initials";
   input1.className = "form-control";
-  input1.placeholder = "Name";
-  input1.required;
+  input1.placeholder = "Name or Initials";
+  input1.required = true;
   createLabel.appendChild(input1);
 
   var createLabel = document.querySelector(".form-group");
@@ -245,26 +245,46 @@ function endQuiz() {
   submitScore.innerHTML = "Submit";
   scoreDiv.appendChild(submitScore);
 
-  // submitScore.addEventListener("click", scoreResults);
+  submitScore.addEventListener("click", scoreResults);
 }
 
-// function scoreResults() {
-//   //remove score
-//   removeScore = document.getElementById("score button");
+function scoreResults() {
+  console.log("I am in scoreResults");
 
-//   var formEl = document.createElement("form");
-//   console.log(formEl);
-//   formEl.className = "bg-white my-4 p-4 rounded";
-//   formDiv.appendChild(formEl);
-// }
+  quizName = document.querySelector("#initials");
+  if (!quizName.value) {
+    quizName.placeholder = "You have to enter something.";
+    return;
+  }
 
-//   //remove score components and add form
-//   var scoreDiv = document.getElementById("score");
-//   while (scoreDiv.hasChildNodes()) {
-//     scoreDiv.removeChild(scoreDiv.firstChild);
-//   }
+  localStorage.setItem("name", JSON.stringify(quizName.value));
+  localStorage.setItem("score", score);
 
-// }
+  //   var removeQuestionEl = document.getElementById("question");
+  //   removeQuestionEl.remove();
+
+  //   var removeAnswerList = document.getElementById("answer-list");
+  //   while (removeAnswerList.hasChildNodes()) {
+  //     removeAnswerList.removeChild(removeAnswerList.firstChild);
+  //   }
+
+  // console.log(quizName.textContent)
+
+  //   //remove score
+  //   removeScore = document.getElementById("score button");
+
+  //   var formEl = document.createElement("form");
+  //   console.log(formEl);
+  //   formEl.className = "bg-white my-4 p-4 rounded";
+  //   formDiv.appendChild(formEl);
+  // }
+
+  //   //remove score components and add form
+  //   var scoreDiv = document.getElementById("score");
+  //   while (scoreDiv.hasChildNodes()) {
+  //     scoreDiv.removeChild(scoreDiv.firstChild);
+  //   }
+}
 
 // function createHighScoreForm() {
 //   // lets create a form to capture the score and such
