@@ -9,13 +9,12 @@ var score = 0;
 //variables for question/answer code
 var questionDivEl = document.querySelector(".question-div");
 var answerOlEl = document.querySelector("#answer-list");
-var resultDisplay = ""
+var resultDisplay = "";
 var currQuestion = 0;
 // var currAnswer = ""
 console.log("At the start of the JS file currQuestion = " + currQuestion);
 
 //variables for high-score code
-
 
 //create questions objects as global and store in local storage
 var questions = [
@@ -40,12 +39,15 @@ var questions = [
   {
     num: "3. ",
     text: "What is the average speed velocity of an unladen swallow?",
-    answers: [" What do you mean?  An African or European Swallow?", " 43 times", " Blue..no Yellooooo...."],
+    answers: [
+      " What do you mean?  An African or European Swallow?",
+      " 43 times",
+      " Blue..no Yellooooo....",
+    ],
 
-    correctAnswer: 0
-  }
+    correctAnswer: 0,
+  },
 ];
-
 
 // timer
 function timer() {
@@ -64,19 +66,21 @@ function timer() {
   while (welcomeEl.hasChildNodes()) {
     welcomeEl.removeChild(welcomeEl.firstChild);
   }
-  welcomeEl.remove()
+  welcomeEl.remove();
 
   //ask some questions
-  askQuestion()
+  askQuestion();
 }
 
 // START - ask the question code
 
 function askQuestion() {
-
   // set currQuestion to latest value
   currQuestion = currQuestion;
-  console.log("Ok, now I am inside the askQuestion function. CurrQuestions = " + currQuestion);
+  console.log(
+    "Ok, now I am inside the askQuestion function. CurrQuestions = " +
+      currQuestion
+  );
 
   // create html for the question
   var createQuestionEl = document.createElement("p");
@@ -84,8 +88,9 @@ function askQuestion() {
   createQuestionEl.className = "question-item fs-3";
   createQuestionEl.textContent =
     questions[currQuestion].num + questions[currQuestion].text;
-  createQuestionEl.id = "question"
-  createQuestionEl.className = "fs-2 shadow p-3 mb-5 bg-body rounded no-gutters"
+  createQuestionEl.id = "question";
+  createQuestionEl.className =
+    "fs-2 shadow p-3 mb-5 bg-body rounded no-gutters";
   questionDivEl.appendChild(createQuestionEl);
 
   // create html for the answers
@@ -118,22 +123,27 @@ function askQuestion() {
 
       // evaluate the answer and penalize for wrong answer
       if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-        console.log("answer was correct")
+        console.log("answer was correct");
       } else {
         console.log("answer was incorrect");
         sec = sec - 5;
+        if (sec <= 0) {
+          sec = 0;
+          var removeQuestionEl = document.getElementById("question");
+          removeQuestionEl.remove();
+
+          var removeAnswerList = document.getElementById("answer-list");
+          while (removeAnswerList.hasChildNodes()) {
+            removeAnswerList.removeChild(removeAnswerList.firstChild);
+          }
+          endQuiz();
+        }
       }
 
-      nextQuestion()
+      nextQuestion();
     });
-
-  };
-
-};
-
-
-
-
+  }
+}
 
 function nextQuestion() {
   //clear out results display
@@ -149,60 +159,104 @@ function nextQuestion() {
   // var removeDisplayEl = document.getElementById("answer-result")
   // removeDisplayEl.remove();
 
-  isEnd()
-
-};
-
-
-
-
+  isEnd();
+}
 
 function isEnd() {
-  currQuestion++
+  currQuestion++;
   console.log(currQuestion + " is equal to " + questions.length);
   if (currQuestion != questions.length) {
     askQuestion();
   } else {
-    console.log("No more questions!!!")
-    endQuiz()
+    console.log("No more questions!!!");
+    endQuiz();
   }
-};
-
-
-
-
-
+}
 
 function endQuiz() {
-
+  //say some nice words
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
-  var scoreDiv = document.getElementById("score")
+
+  var scoreDiv = document.getElementById("score");
   var scoreEl = document.createElement("h2");
-  scoreEl.textContent = "You finished! Great Job!"
-  scoreEl.className = "fs-2 text-center"
+  if (score <= 0) {
+    scoreEl.textContent =
+      "You scored 0.  Oh well.  Go study and try again.  Have a great day!!";
+    scoreDiv.appendChild(scoreEl);
+    return;
+  }
+
+  scoreEl.textContent = "You finished! Great Job!";
+  scoreEl.className = "fs-2 text-center";
   scoreDiv.append(scoreEl);
 
+  //show score
   showScore = document.createElement("p");
   showScore.textContent = "You're score is " + score;
-  showScore.className = "fs-3 text-center"
+  showScore.className = "fs-3 text-center";
   scoreDiv.appendChild(showScore);
 
-  var askScore = document.createElement("button");
-  askScore.type = "button";
-  askScore.className = "btn btn-primary justify-content-center m-auto";
-  askScore.style = "width: 50%"
-  // askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
-  askScore.innerHTML = "Click me if you want to enter your score.";
-  scoreDiv.appendChild(askScore);
-  askScore.addEventListener("click", function () {
-    
+  //add score form
+  var createForm = document.createElement("form");
+  createForm.id = "score-form-input";
+  createForm.className = "bg-white my-4 p-4 rounded";
+  scoreDiv.appendChild(createForm);
 
-  })
+  var createFormDiv = document.createElement("div");
+  createFormDiv.className = "form-group";
+  createForm.appendChild(createFormDiv);
+
+  var createLabel = document.querySelector(".form-group");
+  var createLabel1 = document.createElement("label");
+  createLabel1.for = "Name";
+  createLabel1.textContent = "Enter Your Name";
+  createLabel.appendChild(createLabel1);
+
+  var input1 = document.createElement("input");
+  input1.type = "text";
+  input1.id = "initials";
+  input1.className = "form-control";
+  input1.placeholder = "Name";
+  input1.required;
+  createLabel.appendChild(input1);
+
+  var createLabel = document.querySelector(".form-group");
+  var createLabel2 = document.createElement("label");
+  createLabel2.for = "Score";
+  createLabel2.textContent = "Your Score";
+  createLabel.appendChild(createLabel2);
+
+  var input2 = document.createElement("input");
+  input2.type = "text";
+  input2.id = "score-field";
+  input2.className = "form-control";
+  input2.placeholder = score;
+  input2.ariaReadOnly;
+  createLabel.appendChild(input2);
+
+  var submitScore = document.createElement("button");
+  submitScore.type = "button";
+  submitScore.id = "score-button";
+  submitScore.className = "btn btn-primary justify-content-center m-auto";
+  submitScore.style = "width: 50%";
+  // submitScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
+  submitScore.innerHTML = "Submit";
+  scoreDiv.appendChild(submitScore);
+
+  // submitScore.addEventListener("click", scoreResults);
 }
 
+// function scoreResults() {
+//   //remove score
+//   removeScore = document.getElementById("score button");
 
+//   var formEl = document.createElement("form");
+//   console.log(formEl);
+//   formEl.className = "bg-white my-4 p-4 rounded";
+//   formDiv.appendChild(formEl);
+// }
 
 //   //remove score components and add form
 //   var scoreDiv = document.getElementById("score");
@@ -225,17 +279,14 @@ function endQuiz() {
 //   showScore.className = "fs-3 text-center"
 //   showScore.appendChild(scoreEl);
 
-//   var askScore = document.createElement("button");
-//   askScore.type = "button";
-//   askScore.className = "btn btn-primary d-flex justify-content-center";
-//   askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
-//   askScore.innerHTML = "Click me if you want to enter your score!!!";
-//   scoreDiv.appendChild(askScore);
+//   var submitScore = document.createElement("button");
+//   submitScore.type = "button";
+//   submitScore.className = "btn btn-primary d-flex justify-content-center";
+//   submitScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
+//   submitScore.innerHTML = "Click me if you want to enter your score!!!";
+//   scoreDiv.appendChild(submitScore);
 
 // }
-
-
-
 
 // function nextButton(event) {
 //   //get target from event
@@ -247,15 +298,7 @@ function endQuiz() {
 
 timerEl.addEventListener("click", timer);
 
-
-
 // buttonEl.addEventListener("click", nextQuestion);
-
-
-
-
-
-
 
 // }
 
