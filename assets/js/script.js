@@ -22,7 +22,7 @@ var questions = [
   {
     num: "1. ",
     text: "What is your name?",
-    answers: ["Indiana Jones", "Arthur, King of the Britons", "A larch"],
+    answers: [" Indiana Jones", " Arthur, King of the Britons", " A larch"],
     correctAnswer: 1,
   },
 
@@ -30,9 +30,9 @@ var questions = [
     num: "2. ",
     text: "What is your quest?",
     answers: [
-      "To find the Lost Ark of the Covenent",
-      "To learn fullstack web-development in 24 weeks",
-      "To seek the Holy Grail",
+      " To find the Lost Ark of the Covenant",
+      " To learn fullstack web-development in 24 weeks",
+      " To seek the Holy Grail",
     ],
     correctAnswer: 2,
   },
@@ -40,7 +40,7 @@ var questions = [
   {
     num: "3. ",
     text: "What is the average speed velocity of an unladen swallow?",
-    answers: ["What do you mean?  An African or European Swallow?", "43 times", "Blue..no Yellooooo...."],
+    answers: [" What do you mean?  An African or European Swallow?", " 43 times", " Blue..no Yellooooo...."],
 
     correctAnswer: 0
   }
@@ -58,20 +58,21 @@ function timer() {
     }
   }, 1000);
 
-  timerEl.style.display = "none"
+  //get rid of the welcome card
+
+  var welcomeEl = document.getElementById("welcome-element");
+  while (welcomeEl.hasChildNodes()) {
+    welcomeEl.removeChild(welcomeEl.firstChild);
+  }
+  welcomeEl.remove()
+
+  //ask some questions
   askQuestion()
 }
 
 // START - ask the question code
 
 function askQuestion() {
-  debugger;
-  //first let's get rid of the Welcome element
-  var welcomeEl = document.getElementById("welcome-element");
-  while (welcomeEl.hasChildNodes()) {
-    welcomeEl.removeChild(welcomeEl.firstChild);
-  }
-
 
   // set currQuestion to latest value
   currQuestion = currQuestion;
@@ -84,7 +85,7 @@ function askQuestion() {
   createQuestionEl.textContent =
     questions[currQuestion].num + questions[currQuestion].text;
   createQuestionEl.id = "question"
-  createQuestionEl.className = "card-title fs-1"
+  createQuestionEl.className = "fs-2 shadow p-3 mb-5 bg-body rounded no-gutters"
   questionDivEl.appendChild(createQuestionEl);
 
   // create html for the answers
@@ -163,7 +164,6 @@ function isEnd() {
     askQuestion();
   } else {
     console.log("No more questions!!!")
-    debugger;
     endQuiz()
   }
 };
@@ -174,7 +174,6 @@ function isEnd() {
 
 
 function endQuiz() {
-  debugger;
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
@@ -191,6 +190,8 @@ function endQuiz() {
 
 
 function createHighScoreForm() {
+  // lets create a form to capture the score and such
+  
 
 }
 
