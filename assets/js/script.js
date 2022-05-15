@@ -178,7 +178,6 @@ function endQuiz() {
   console.log("I am in the endQuiz function");
   score = sec;
   console.log("final score is " + score);
-  debugger;
   var scoreDiv = document.getElementById("score")
   var scoreEl = document.createElement("h2");
   scoreEl.textContent = "You finished! Great Job!"
@@ -194,10 +193,23 @@ function endQuiz() {
   askScore.type = "button";
   askScore.className = "btn btn-primary d-flex justify-content-center";
   askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
-  askScore.innerHTML = "Click me if you want to enter your score!!!";
+  askScore.innerHTML = "Click me if you want to enter your score.";
   scoreDiv.appendChild(askScore);
+  askScore.addEventListener("click", function () {
+    
+
+  })
 }
 
+
+
+//   //remove score components and add form
+//   var scoreDiv = document.getElementById("score");
+//   while (scoreDiv.hasChildNodes()) {
+//     scoreDiv.removeChild(scoreDiv.firstChild);
+//   }
+
+// }
 
 // function createHighScoreForm() {
 //   // lets create a form to capture the score and such
