@@ -14,6 +14,7 @@ var currQuestion = 0;
 // var currAnswer = ""
 console.log("At the start of the JS file currQuestion = " + currQuestion);
 var highScores = document.getElementById("high-score");
+var allScores = [];
 
 //create questions objects as global and store in local storage
 var questions = [
@@ -52,42 +53,26 @@ var questions = [
     correctAnswer: 2,
   },
 
-{
-  num: "5. ",
-  text: "A very useful tool used during development and debugging for printing contenct to the debugger is:",
-  answers: [" JavaScript", " termina/bash", " for loops", " console.log"],
+  {
+    num: "5. ",
+    text: "A very useful tool used during development and debugging for printing contenct to the debugger is:",
+    answers: [" JavaScript", " termina/bash", " for loops", " console.log"],
 
-  correctAnswer: 3,
-}
-
-
-
-
-
-
-
-
+    correctAnswer: 3,
+  },
 ];
 
-function getHighScores() {
-  var allScores = [];
-  keys = Object.keys(localStorage);
-  i = keys.length;
+var scores = function () {
+  window.location.href = "scores.html";
+};
 
-  while (i--) {
-    allScores.push(localStorage.getItem(keys[i]));
-  }
-
-  console.log(allScores);
-  // allScores = JSON.parse(localStorage.getItem("name", )) || [];
-  // console.log(allScores);
-}
-
-highScores.addEventListener("click", getHighScores);
+//set scores event
+var goScores = document.getElementById("high-score");
+goScores.addEventListener("click", scores);
 
 // timer
 function timer() {
-  sec = 100;
+  sec = 75;
   var timer = setInterval(function () {
     document.getElementById("timer").innerHTML = "00:" + sec;
     sec--;
@@ -269,8 +254,6 @@ function endQuiz() {
   input1.required = true;
   createLabel.appendChild(input1);
 
-  
-
   var submitScore = document.createElement("button");
   submitScore.type = "button";
   submitScore.id = "score-button";
@@ -291,35 +274,23 @@ function scoreResults() {
     quizName.placeholder = "You have to enter something.";
     return;
   }
+  allScores.push(quizName.value + ", " + score);
+  keys = Object.keys(localStorage);
+  var keyIdx = keys.length;
+  newKey = keys.length + 1;
+  localStorage.setItem(newKey, JSON.stringify(allScores));
 
-  localStorage.setItem("name", JSON.stringify(quizName.value));
-  localStorage.setItem("score", score);
-
-  //   var removeQuestionEl = document.getElementById("question");
-  //   removeQuestionEl.remove();
-
-  //   var removeAnswerList = document.getElementById("answer-list");
-  //   while (removeAnswerList.hasChildNodes()) {
-  //     removeAnswerList.removeChild(removeAnswerList.firstChild);
-  //   }
-
-  // console.log(quizName.textContent)
-
-  //   //remove score
-  //   removeScore = document.getElementById("score button");
-
-  //   var formEl = document.createElement("form");
-  //   console.log(formEl);
-  //   formEl.className = "bg-white my-4 p-4 rounded";
-  //   formDiv.appendChild(formEl);
-  // }
-
-  //   //remove score components and add form
-  //   var scoreDiv = document.getElementById("score");
-  //   while (scoreDiv.hasChildNodes()) {
-  //     scoreDiv.removeChild(scoreDiv.firstChild);
-  //   }
+  window.location.href = "scores.html";
 }
+
+// function getHighScores() {
+
+//   var allScoresName = JSON.parse(localStorage.getItem("name", )) || [];
+//   var allScoresScore = JSON.parse(localStorage.getItem("name", )) || []
+
+//   console.log(allScores);
+
+// console.log(allScores);
 
 // function createHighScoreForm() {
 //   // lets create a form to capture the score and such
