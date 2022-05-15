@@ -191,8 +191,9 @@ function endQuiz() {
 
   var askScore = document.createElement("button");
   askScore.type = "button";
-  askScore.className = "btn btn-primary d-flex justify-content-center";
-  askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
+  askScore.className = "btn btn-primary justify-content-center m-auto";
+  askScore.style = "width: 50%"
+  // askScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
   askScore.innerHTML = "Click me if you want to enter your score.";
   scoreDiv.appendChild(askScore);
   askScore.addEventListener("click", function () {
