@@ -19,33 +19,54 @@ var highScores = document.getElementById("high-score");
 var questions = [
   {
     num: "1. ",
-    text: "What is your name?",
-    answers: [" Indiana Jones", " Arthur, King of the Britons", " A larch"],
-    correctAnswer: 1,
+    text: "Commonly used data types DO NOT include:",
+    answers: [" strings", " booleans", " alerts", " numbers"],
+    correctAnswer: 2,
   },
 
   {
     num: "2. ",
-    text: "What is your quest?",
-    answers: [
-      " To find the Lost Ark of the Covenant",
-      " To learn fullstack web-development in 24 weeks",
-      " To seek the Holy Grail",
-    ],
+    text: "The condition in an if/else statement is enclosed within ___.",
+    answers: [" quotes", " curly brackets", " parentheses", " square brackets"],
     correctAnswer: 2,
   },
 
   {
     num: "3. ",
-    text: "What is the average speed velocity of an unladen swallow?",
+    text: "Arrays in JavaScript can be used to store _____.",
     answers: [
-      " What do you mean?  An African or European Swallow?",
-      " 43 times",
-      " Blue..no Yellooooo....",
+      " numbers and strings",
+      " other arrays",
+      " booleans",
+      " all of the above",
     ],
 
-    correctAnswer: 0,
+    correctAnswer: 3,
   },
+
+  {
+    num: "4. ",
+    text: "Sting values must be enclosed within _____ when being assigned to variables.",
+    answers: [" commas", " curly brackets", " quotes", " parentheses"],
+
+    correctAnswer: 2,
+  },
+
+{
+  num: "5. ",
+  text: "A very useful tool used during development and debugging for printing contenct to the debugger is:",
+  answers: [" JavaScript", " termina/bash", " for loops", " console.log"],
+
+  correctAnswer: 3,
+}
+
+
+
+
+
+
+
+
 ];
 
 function getHighScores() {
@@ -66,7 +87,7 @@ highScores.addEventListener("click", getHighScores);
 
 // timer
 function timer() {
-  sec = 15;
+  sec = 100;
   var timer = setInterval(function () {
     document.getElementById("timer").innerHTML = "00:" + sec;
     sec--;
@@ -152,7 +173,7 @@ function askQuestion() {
         console.log("answer was correct");
       } else {
         console.log("answer was incorrect");
-        sec = sec - 5;
+        sec = sec - 10;
         if (sec <= 0) {
           sec = 0;
           var removeQuestionEl = document.getElementById("question");
@@ -236,8 +257,8 @@ function endQuiz() {
 
   var createLabel = document.querySelector(".form-group");
   var createLabel1 = document.createElement("label");
-  createLabel1.for = "Name";
-  createLabel1.textContent = "Enter Your Name";
+  createLabel1.for = "Enter your name or initials";
+  createLabel1.textContent = "initials";
   createLabel.appendChild(createLabel1);
 
   var input1 = document.createElement("input");
@@ -248,19 +269,7 @@ function endQuiz() {
   input1.required = true;
   createLabel.appendChild(input1);
 
-  var createLabel = document.querySelector(".form-group");
-  var createLabel2 = document.createElement("label");
-  createLabel2.for = "Score";
-  createLabel2.textContent = "Your Score";
-  createLabel.appendChild(createLabel2);
-
-  var input2 = document.createElement("input");
-  input2.type = "text";
-  input2.id = "score-field";
-  input2.className = "form-control";
-  input2.placeholder = score;
-  input2.ariaReadOnly;
-  createLabel.appendChild(input2);
+  
 
   var submitScore = document.createElement("button");
   submitScore.type = "button";
@@ -343,4 +352,3 @@ function scoreResults() {
 //   //   nextQuestion()
 
 timerEl.addEventListener("click", timer);
-
