@@ -50,15 +50,14 @@ var questions = [
 
 function getHighScores() {
   var allScores = [];
-  keys = Object.keys(localStorage) ;
-  i = keys.length
+  keys = Object.keys(localStorage);
+  i = keys.length;
 
   while (i--) {
     allScores.push(localStorage.getItem(keys[i]));
-    
   }
 
-  console.log (allScores);
+  console.log(allScores);
   // allScores = JSON.parse(localStorage.getItem("name", )) || [];
   // console.log(allScores);
 }
@@ -67,11 +66,14 @@ highScores.addEventListener("click", getHighScores);
 
 // timer
 function timer() {
-  sec = 60;
+  sec = 15;
   var timer = setInterval(function () {
     document.getElementById("timer").innerHTML = "00:" + sec;
     sec--;
-    if (sec < 0) {
+    if (sec < 10) {
+      sec = "0" + sec;
+    }
+    if (sec < 0 || sec < "0" + 0) {
       clearInterval(timer);
     }
   }, 1000);
@@ -92,6 +94,14 @@ function timer() {
 
 function askQuestion() {
   // set currQuestion to latest value
+  if (sec <= 0) {
+    var checkAnswer = document.getElementById("question");
+    if (!checkAnswer) {
+      endQuiz();
+    } else {
+      nextQuestion();
+    }
+  }
   currQuestion = currQuestion;
   console.log(
     "Ok, now I am inside the askQuestion function. CurrQuestions = " +
@@ -334,35 +344,3 @@ function scoreResults() {
 
 timerEl.addEventListener("click", timer);
 
-// buttonEl.addEventListener("click", nextQuestion);
-
-// }
-
-//END add answer text to html
-
-// createLiEl.innerHTML = localStorage.getItem(JSON.parse(question1.text))
-
-//START pseudocode
-
-// // create first answer
-// document.querySelector(".qlist").appendChild(createParaEl);
-// createParaEl.innerHTML = question1.answerA;
-
-// function to reduce timer on wrong answer
-// if answer = wrong reduce timer left by x;
-
-// function score
-// save score in local storage.
-// maintain high score
-// show high score if necessary
-// log initials
-
-// create question cards from objects in HTML
-// create response that question is right or wrong
-// create code to hightlight selected response
-
-//END pseudocode
-//localSTorage
-// Steph note: createAnswerElA.addEventListener('click', evalAnswer)
-
-// var allScores = JSON.parse(localStorage.getItem('key')) || []
