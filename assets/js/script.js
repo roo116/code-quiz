@@ -183,17 +183,14 @@ function isEnd() {
   if (currQuestion != questions.length) {
     askQuestion();
   } else {
-    console.log("No more questions!!!");
     endQuiz();
   }
 }
 
 function endQuiz() {
-  //say some nice words
-  console.log("I am in the endQuiz function");
+ 
+  clearInterval(timeLeft);
   score = sec;
-  console.log("final score is " + score);
-
   var scoreDiv = document.getElementById("score");
   var scoreEl = document.createElement("h2");
   scoreEl.className = "fs-5 m-auto"
