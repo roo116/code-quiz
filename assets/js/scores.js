@@ -7,24 +7,20 @@ var quizReturn = function () {
 var goBack = document.getElementById("go-back");
 goBack.addEventListener("click", quizReturn);
 
-var scoreVal = [];
-var showHighScore = function () {
-  var allkeys = Object.keys(localStorage),
-    i = allkeys.length;
+var results = "";
+var oList = document.getElementById("score-rank");
+var list = ""
+var txtContent = ""
 
-  while (i--) {
-    scoreVal.push(localStorage.getItem(JSON.parse(allkeys[i])));
-  }
+var allScores = Object.keys(localStorage);
+console.log(allScores);
+for (var i = 0; i < allScores.length; i++) {
+  txtContent = localStorage.getItem((allScores[i]));
+  txtContent = JSON.parse(txtContent);
+  list = document.createElement("li");
+  list.textContent = txtContent;
+  oList.appendChild(list);
+}
 
-  var cardEl = document.querySelector("#score-list");
-  var olist = document.createElement("ol");
-  olist.id = "score-rank";
-  cardEl.appendChild(olist);
 
-  var list = document.createElement("li");
-  list.id = "score-items";
-  list.textContent = scoreVal.join()
-  olist.appendChild(list);
-};
 
-showHighScore();

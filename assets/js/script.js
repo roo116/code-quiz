@@ -1,18 +1,13 @@
 //global variables
 
-//variables for timer/score
 var timerEl = document.querySelector("#timer-btn");
-// var buttonEl = document.querySelector("#next-btn");
 var sec = 0;
 var score = 0;
-
-//variables for question/answer code
+var timeLeft = 0;
 var questionDivEl = document.querySelector(".question-div");
 var answerOlEl = document.querySelector("#answer-list");
 var resultDisplay = "";
 var currQuestion = 0;
-// var currAnswer = ""
-console.log("At the start of the JS file currQuestion = " + currQuestion);
 var highScores = document.getElementById("high-score");
 var allScores = [];
 
@@ -55,8 +50,8 @@ var questions = [
 
   {
     num: "5. ",
-    text: "A very useful tool used during development and debugging for printing contenct to the debugger is:",
-    answers: [" JavaScript", " termina/bash", " for loops", " console.log"],
+    text: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answers: [" JavaScript", " terminal/bash", " for loops", " console.log"],
 
     correctAnswer: 3,
   },
@@ -73,14 +68,14 @@ goScores.addEventListener("click", scores);
 // timer
 function timer() {
   sec = 75;
-  var timer = setInterval(function () {
+  timeLeft = setInterval(function () {
     document.getElementById("timer").innerHTML = "00:" + sec;
     sec--;
     if (sec < 10) {
       sec = "0" + sec;
     }
     if (sec < 0 || sec < "0" + 0) {
-      clearInterval(timer);
+      clearInterval(timeLeft);
     }
   }, 1000);
 
@@ -100,7 +95,8 @@ function timer() {
 
 function askQuestion() {
   // set currQuestion to latest value
-  if (sec <= 0) {
+  if (sec < 0 || sec < "0" + 0) {
+    clearInterval(timeLeft);
     var checkAnswer = document.getElementById("question");
     if (!checkAnswer) {
       endQuiz();
@@ -111,7 +107,7 @@ function askQuestion() {
   currQuestion = currQuestion;
   console.log(
     "Ok, now I am inside the askQuestion function. CurrQuestions = " +
-      currQuestion
+    currQuestion
   );
 
   // create html for the question
@@ -122,7 +118,7 @@ function askQuestion() {
     questions[currQuestion].num + questions[currQuestion].text;
   createQuestionEl.id = "question";
   createQuestionEl.className =
-    "fs-2 shadow p-3 mb-5 bg-body rounded no-gutters";
+    "fs-4 shadow p-3 mb-5 bg-body rounded no-gutters";
   questionDivEl.appendChild(createQuestionEl);
 
   // create html for the answers
@@ -139,19 +135,6 @@ function askQuestion() {
     createAnswer.addEventListener("click", function (event) {
       var answerVal = event.target.dataset.answerValue;
       console.log("the answerVal is " + answerVal);
-      // if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
-      //   var responseEl = document.querySelector(".right-wrong")
-      //   var resultDisplay = document.createElement("p");
-      //   resultDisplay.id = "answer-result";
-      //   resultDisplay.textContent = "Yes!!!!  You're right!!  Awesome!!!"
-      //   responseEl.appendChild(resultDisplay);
-      // } else {
-      //   var responseEl = document.querySelector(".right-wrong")
-      //   var resultDisplay = document.createElement("p");
-      //   resultDisplay.id = "answer-result";
-      //   resultDisplay.textContent = "WRONG!!! WRONG WRONG WRONG!!!";
-      //   responseEl.appendChild(resultDisplay);
-      // };
 
       // evaluate the answer and penalize for wrong answer
       if (parseInt(answerVal) === questions[currQuestion].correctAnswer) {
@@ -159,7 +142,7 @@ function askQuestion() {
       } else {
         console.log("answer was incorrect");
         sec = sec - 10;
-        if (sec <= 0) {
+        if (sec < 0 || sec < "0" + 0) {
           sec = 0;
           var removeQuestionEl = document.getElementById("question");
           removeQuestionEl.remove();
@@ -213,6 +196,7 @@ function endQuiz() {
 
   var scoreDiv = document.getElementById("score");
   var scoreEl = document.createElement("h2");
+  scoreEl.className = "fs-5 m-auto"
   if (score <= 0) {
     scoreEl.textContent =
       "You scored 0.  Oh well.  Go study and try again.  Have a great day!!";
@@ -274,52 +258,14 @@ function scoreResults() {
     quizName.placeholder = "You have to enter something.";
     return;
   }
-  allScores.push(quizName.value + ", " + score);
+  results = quizName.value + " - " + score
+  console.log(results);
   keys = Object.keys(localStorage);
   var keyIdx = keys.length;
   newKey = keys.length + 1;
-  localStorage.setItem(newKey, JSON.stringify(allScores));
+  localStorage.setItem(newKey, JSON.stringify(results));
 
   window.location.href = "scores.html";
 }
-
-// function getHighScores() {
-
-//   var allScoresName = JSON.parse(localStorage.getItem("name", )) || [];
-//   var allScoresScore = JSON.parse(localStorage.getItem("name", )) || []
-
-//   console.log(allScores);
-
-// console.log(allScores);
-
-// function createHighScoreForm() {
-//   // lets create a form to capture the score and such
-//   var scoreDiv = document.getElementById("score")
-//   var scoreEl = document.createElement("p");
-//   scoreEl.textContent = "You finished! Great Job!"
-//   scoreEl.className = "fs-1 text-center"
-//   scoreDiv.appendChild(scoreEl);
-
-//   showScore = document.createElement("p");
-//   showScore.textContent = "You're score is " + score;
-//   showScore.className = "fs-3 text-center"
-//   showScore.appendChild(scoreEl);
-
-//   var submitScore = document.createElement("button");
-//   submitScore.type = "button";
-//   submitScore.className = "btn btn-primary d-flex justify-content-center";
-//   submitScore.style = "--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem";
-//   submitScore.innerHTML = "Click me if you want to enter your score!!!";
-//   scoreDiv.appendChild(submitScore);
-
-// }
-
-// function nextButton(event) {
-//   //get target from event
-//   var nextButtionClick = event.target;
-//   console.log(nextButtionClick);
-
-//   // if (nextButtionClick.matches("#next-btn")) {
-//   //   nextQuestion()
 
 timerEl.addEventListener("click", timer);
